@@ -10,10 +10,11 @@ public class Draggable : MonoBehaviour
     private Collider2D _collider;
     private DragController _dragController;
     private float _movmentTime = 15f;
+    Vector2 initialPosition;
     private System.Nullable<Vector3> _movmentDestination;
     private void Start()
     {
-        //firstPosition = gameObject.transform.position;
+        initialPosition = transform.position;
         _collider = GetComponent<Collider2D>();
         _dragController = FindObjectOfType<DragController>();
     }
@@ -36,6 +37,10 @@ public class Draggable : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, _movmentDestination.Value, _movmentTime * Time.fixedDeltaTime);
             }
         }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, initialPosition, _movmentTime * Time.fixedDeltaTime);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -51,10 +56,10 @@ public class Draggable : MonoBehaviour
         {
             _movmentDestination = other.transform.position;
         }
-        else if (other.CompareTag("InvalidDrop"))
-        {
-            _movmentDestination = LastPosition;
-        }
+        //else if (other.CompareTag("InvalidDrop"))
+        //{
+        //    _movmentDestination = LastPosition;
+        //}
         //else
         //{
         //    _movmentDestination = firstPosition;

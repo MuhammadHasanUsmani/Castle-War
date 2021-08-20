@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class SampleDrag : MonoBehaviour
 {
+    Vector2 lastPosition;
+    bool isActive = false;
+    Collider2D lastObject;
     Vector2 point;
     float x;
     float y;
-    //float z;
+    public float speed = 15f;
 
-    //void Update()
-    //{
-    //    if (Input.GetMouseButton(0))
-    //    {
-    //    OnMouseDrag();
-    //    }
-    //}
+    private void Start()
+    {
+        lastPosition = transform.position;
 
+    }
     void OnMouseDrag()
     {
         print("hi");
@@ -28,5 +28,29 @@ public class SampleDrag : MonoBehaviour
         gameObject.transform.position = point;
 
         //Debug.Log("x: " + point.x + "   y: " + point.y);
+    }
+    private void OnMouseUp()
+    {
+        if (isActive)
+        {
+            transform.position = Vector3.Lerp(transform.position, lastObject.transform.position, speed * Time.deltaTime);
+            lastPosition =transform.position = lastObject.transform.position;
+            
+        }else
+        {
+            transform.position = lastPosition;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        isActive = true;
+        lastObject = collision;
+
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+        if (lastObject == collision)
+        { isActive = false; lastObject = null; }
     }
 }
