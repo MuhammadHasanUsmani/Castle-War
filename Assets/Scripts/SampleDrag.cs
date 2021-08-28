@@ -1,0 +1,210 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SampleDrag : MonoBehaviour
+{
+
+    [System.Serializable]
+    private class Boxes
+    {
+#pragma warning disable 0649
+        public Collider2D boxCollider;
+        public float BoxHealth;
+        public Text boxHealthText;
+#pragma warning restore 0649
+    }
+    int boxHealthIndex = 0;
+    //
+    [SerializeField]
+    List<Boxes> boxes = new List<Boxes>();
+    [SerializeField]
+    List<GameObject> box = new List<GameObject>();
+    //[SerializeField]
+    //private  Boxes[] boxes;
+
+    public float playerHealth = 15f;
+    public float enemyHealth;
+    public Text playerHealthText;
+
+    Vector2 lastPosition;
+    public bool isActive = false;
+    Collider2D lastObject;
+    Vector2 point;
+    float x;
+    float y;
+    public float speed = 15f;
+    public bool checkFight = false;
+    public bool checkMouse = false;
+
+    // check index
+    int collideIndex = 2;
+
+
+
+
+    private void Start()
+    {
+        lastPosition = transform.position;
+    }
+    void Update()
+    {
+        for (int i = 0; i < boxes.Count; i++)
+        {
+            boxHealthIndex = i;
+            boxes[boxHealthIndex].boxHealthText.text = boxes[boxHealthIndex].BoxHealth.ToString();
+        }
+        playerHealthText.text = playerHealth.ToString();
+    }
+
+    void OnMouseDrag()
+    {
+        x = Input.mousePosition.x;
+        y = Input.mousePosition.y;
+        //z = gameObject.transform.position.z;
+
+        point = Camera.main.ScreenToWorldPoint(new Vector2(x, y));
+        gameObject.transform.position = point;
+
+        //Debug.Log("x: " + point.x + "   y: " + point.y);
+    }
+    private void OnMouseUp()
+    {
+        if (isActive)
+        {
+            transform.position = Vector3.Lerp(transform.position, lastObject.transform.position, speed * Time.deltaTime);
+            lastPosition = transform.position = lastObject.transform.position;
+            //print("mouseup");
+            if (lastObject != null)
+            {
+                StartCoroutine("Fade");
+
+            }
+
+        }
+        else
+        {
+            transform.position = lastPosition;
+        }
+        checkMouse = true;
+
+    }
+    private void OnMouseDown()
+    {
+        checkMouse = false;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //print("collide");
+        checkFight = true;
+        isActive = true;
+        lastObject = collision;
+        if (collision.gameObject.tag == "Box")
+        {
+            for (int i = 0; i < box.Count; i++) //boxes[boxes.Count].BoxHealth // box.Count
+            {
+                if (collision.gameObject.Equals(box[i]))
+                {
+                    print(i);
+                    collideIndex = i;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //print("exit");
+
+        if (lastObject == collision)
+        {   
+            isActive = false; 
+            lastObject = null; 
+            checkFight = false;
+        }
+        
+        if (lastObject == null)
+        {
+            StopCoroutine("Fade");
+            print("destroy");
+        }
+
+        if (boxes[collideIndex].BoxHealth <= 0)
+        {
+            Destroy(collision.gameObject);
+        }
+            
+            
+
+    }
+
+   
+
+    public void Fight()
+    {
+        if (playerHealth > enemyHealth)
+        {
+            playerHealth = playerHealth += enemyHealth;
+            boxes[collideIndex].BoxHealth = 0;
+            print("Enemy "+ collideIndex + " is Dead");
+        }
+        else
+        {
+            print("Player Dead");
+        }
+    }
+    IEnumerator Fade()
+    {
+        yield return new WaitForSeconds(2f);
+        print("enter");
+        if (checkFight && checkMouse)
+        {
+            enemyHealth = boxes[collideIndex].BoxHealth;
+            print("Enemy Health is " + enemyHealth);
+            Fight();
+        }
+
+    }
+}
+
+
+
+
+        //int index = FindObjectOfType<SampleDrag>().boxes.IndexOf();
+        //int index = boxes.IndexOf(<SampleDrag>().boxes,boxes.Count); //FindObjectOfType<SampleDrag>().
+        //Debug.Log(index + "ye num hai");
+
+
+            //Destroy(boxes[1].boxCollider);
+            //Destroy(box[1]);
+        //boxes[collideIndex].BoxHealth = 0f;
+    //public float range = 2f;
+    //public GameObject raycastObj;
+    //[Range(0, 5)]
+    //public float rangerate;
+        //rangerate = 2.5f;
+    //private void Update()
+    //{
+        //Debug.DrawRay(transform.position, transform.right * range, Color.red);
+        //EnemyCheck();
+       //float  finalrate = rangerate / 256f * 100;
+        //print(rangerate / 5 * 256 );
+    //}
+
+    //private void EnemyCheck()
+    //{
+    //    //Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right) * range, Color.red);
+    //    int layerMask = 1 << 8;
+    //    layerMask = ~layerMask;
+    //    RaycastHit2D hit = Physics2D.Raycast(transform.position,transform.right ,/*TransformDirection(Vector2.left)*/ range,layerMask);
+    //    if (hit.collider && hit.collider.CompareTag("Enemy"))
+    //    {
+    //        Debug.Log("Hit : " + hit.collider.name);
+    //    }
+    //    //if (hit.collider && hit.collider.CompareTag("Enemy"))
+    //    //{
+    //    //    print("detect enemy");
+    //    //}
+    //}
