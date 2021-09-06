@@ -37,6 +37,8 @@ public class SampleDrag : MonoBehaviour
     public float speed = 15f;
     public bool checkFight = false;
     public bool checkMouse = false;
+    public Camera cam;
+    Vector3 campoint;
 
     // check index
     int collideIndex = 2;
@@ -165,6 +167,29 @@ public class SampleDrag : MonoBehaviour
             print("Enemy Health is " + enemyHealth);
             Fight();
         }
+        CameraMove();
+
+    }
+
+    public void CameraMove()
+    {
+        campoint = cam.transform.position;
+        if (playerHealth == 65)
+        {
+            Vector3 newpos =  campoint = new Vector3 (9,0,-10);
+            cam.transform.position = Vector3.Lerp(campoint, newpos, 2f * Time.deltaTime);
+            //cam.transform.position = campoint;
+        }
+        else if (playerHealth == 415)
+        {
+            campoint = cam.transform.position;
+            campoint.x = (18);
+            cam.transform.position = campoint;
+            float newsizeCamera = cam.orthographicSize + 2f;
+            cam.orthographicSize = newsizeCamera;
+        }
+        //cam.transform.position = Vector3.Lerp(campoint, newpos, 2f * Time.deltaTime);
+        //cam.transform.position = campoint;
 
     }
 }
