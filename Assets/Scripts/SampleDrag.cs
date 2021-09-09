@@ -192,7 +192,11 @@ public class SampleDrag : MonoBehaviour
         //cam.transform.position = campoint;
 
     }
-}
+}// class
+
+
+
+
 
 
 
