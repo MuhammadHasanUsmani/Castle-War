@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class SampleDrag : MonoBehaviour
 {
-
     [System.Serializable]
     private class Boxes
     {
 #pragma warning disable 0649
         public Collider2D boxCollider;
+        public float min, max;
         public float BoxHealth;
         public Text boxHealthText;
 #pragma warning restore 0649
@@ -49,6 +49,7 @@ public class SampleDrag : MonoBehaviour
     private void Start()
     {
         lastPosition = transform.position;
+        LevelSpawner.Instance.ChangePOsition();
     }
     void Update()
     {
@@ -77,13 +78,17 @@ public class SampleDrag : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, lastObject.transform.position, speed * Time.deltaTime);
             lastPosition = transform.position = lastObject.transform.position;
+            Vector2 newpos;
+            newpos = transform.position;
+            newpos = new Vector2(lastObject.transform.position.x - 0.5f, lastObject.transform.position.y);
+            lastPosition = newpos;
+            transform.position = lastPosition;
             //print("mouseup");
             if (lastObject != null)
             {
                 StartCoroutine("Fade");
 
             }
-
         }
         else
         {
@@ -102,6 +107,13 @@ public class SampleDrag : MonoBehaviour
         checkFight = true;
         isActive = true;
         lastObject = collision;
+
+
+        //if (boxes[2].boxCollider == collision)
+        //{ 
+        //    boxes[2].BoxHealth
+        //}
+
         if (collision.gameObject.tag == "Box")
         {
             for (int i = 0; i < box.Count; i++) //boxes[boxes.Count].BoxHealth // box.Count
@@ -136,6 +148,7 @@ public class SampleDrag : MonoBehaviour
         if (boxes[collideIndex].BoxHealth <= 0)
         {
             Destroy(collision.gameObject);
+            LevelSpawner.Instance.PlayerCastle();
         }
             
             
@@ -167,7 +180,7 @@ public class SampleDrag : MonoBehaviour
             print("Enemy Health is " + enemyHealth);
             Fight();
         }
-        CameraMove();
+        //CameraMove();
 
     }
 
