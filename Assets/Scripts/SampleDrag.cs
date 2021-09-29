@@ -45,8 +45,12 @@ public class SampleDrag : MonoBehaviour
     // check index
     int collideIndex = 2;
     public GameObject lastpos;
-
+     
+    // Player Animator
     public Animator anim;
+
+    // 
+    public GameObject scrollrect;
 
 
 
@@ -61,6 +65,7 @@ public class SampleDrag : MonoBehaviour
         {
             boxes[0].BoxHealth = Random.Range(boxes[i].min, boxes[i].max);
         }
+        scrollrect.GetComponent<ScrollRect>();
     }
     void Update()
     {
@@ -71,6 +76,7 @@ public class SampleDrag : MonoBehaviour
             boxes[boxHealthIndex].boxHealthText.text = boxes[boxHealthIndex].BoxHealth.ToString();
         }
         playerHealthText.text = playerHealth.ToString();
+        
     }
 
     void OnMouseDrag()
@@ -107,15 +113,17 @@ public class SampleDrag : MonoBehaviour
             transform.position = lastPosition;
         }
         checkMouse = true;
-        this.transform.SetParent(LevelSpawner.Instance.littleCantaner.transform);
+        //this.transform.SetParent(LevelSpawner.Instance.littleCantaner.transform);
         //LevelSpawner.Instance.littleCantaner.transform.SetParent(LevelSpawner.Instance.bigCantaner.transform);
+        scrollrect.GetComponent<ScrollRect>().horizontal = true;
 
     }
     private void OnMouseDown()
     {
         checkMouse = false;
-        this.transform.SetParent(null);
+        //this.transform.SetParent(null);
         //LevelSpawner.Instance.littleCantaner.transform.SetParent(null);
+        scrollrect.GetComponent<ScrollRect>().horizontal = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

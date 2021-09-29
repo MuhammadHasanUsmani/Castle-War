@@ -32,10 +32,10 @@ public class LevelSpawner : MonoBehaviour
     List<Boxes> boxesRow2 = new List<Boxes>();
 
 
-    //[SerializeField]
-    //List<Boxes> boxesRow3 = new List<Boxes>();
-    //[SerializeField]
-    //List<Boxes> boxesRow4 = new List<Boxes>();
+    [SerializeField]
+    List<Boxes> boxesRow3 = new List<Boxes>();
+    [SerializeField]
+    List<Boxes> boxesRow4 = new List<Boxes>();
     //[SerializeField]
     //List<Boxes> boxesRow5 = new List<Boxes>();
     //[SerializeField]
@@ -112,33 +112,37 @@ public class LevelSpawner : MonoBehaviour
     {
         for (int i = 0; i < 11; i++)
         {
+            boxRows[i].transform.localPosition = new Vector2(boxPositions[i].x, boxPositions[i].y);
+            //////////////////////////////////////////////////////////////////////////////////
+            ///
+
             //boxesRow9[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
             //boxesRow8[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
             //boxesRow7[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
             //boxesRow6[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
             //boxesRow5[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
-            //boxesRow4[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
-            //boxesRow3[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
-            boxesRow0[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
-            boxesRow1[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
+            boxesRow4[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
+            boxesRow3[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
             boxesRow2[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
+            boxesRow1[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
+            boxesRow0[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
 
-            boxRows[i].transform.position = new Vector2(boxPositions[i].x, boxPositions[i].y);
         }
     }
 
     public void SetPositon()
     {
-        // for all row positions
+        //// for all row positions
         for (int i = 0; i < boxRows.Count ; i++)
         {
+            //boxRows[i].transform.localPosition = new Vector2(boxPositions[i].x, boxPositions[i].y);
             if (boxRows[i] == null)
             {
                 boxRows.RemoveAt(i);
-                boxRows[i].transform.position = new Vector2(boxPositions[i].x, boxPositions[i].y);
             }
+                boxRows[i].transform.localPosition = new Vector2(boxPositions[i].x, boxPositions[i].y);
         }
-        // for 1 row
+        //// for 1 row
         for (int i = 0; i < boxesRow0.Count ; i++)
         {
             if (boxesRow0[i].boxCollider == null)
@@ -147,10 +151,10 @@ public class LevelSpawner : MonoBehaviour
                 print("box gone");
                 
                 //Vector2.Lerp(boxesRow[i].boxCollider.transform.position, new Vector2(boxElements0[i].x, boxElements0[i].y), 0.5f * Time.deltaTime);
-                boxesRow0[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
             }
+                boxesRow0[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         }
-        // for 2 row
+        //// for 2 row
         for (int i = 0; i < boxesRow1.Count; i++)
         {
              if (boxesRow1[i].boxCollider == null)
@@ -160,10 +164,10 @@ public class LevelSpawner : MonoBehaviour
                     //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
                     //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
                     //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-                    boxesRow1[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
              }
+                    boxesRow1[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         }
-        // for 3 row
+        //// for 3 row
         for (int i = 0; i < boxesRow2.Count; i++)
         {
             if (boxesRow2[i].boxCollider == null)
@@ -173,36 +177,36 @@ public class LevelSpawner : MonoBehaviour
                 //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
                 //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
                 //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-                boxesRow2[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
             }
+                boxesRow2[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         }
-        // for 4 row
-        //for (int i = 0; i < boxesRow3.Count; i++)
-        //{
-        //    if (boxesRow3[i].boxCollider == null)
-        //    {
-        //        boxesRow3.RemoveAt(i);
-        //        print("box gone");
-        //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
-        //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
-        //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-        //        boxesRow3[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
-        //    }
-        //}
-        // for 5 row
-        //for (int i = 0; i < boxesRow4.Count; i++)
-        //{
-        //    if (boxesRow4[i].boxCollider == null)
-        //    {
-        //        boxesRow4.RemoveAt(i);
-        //        print("box gone");
-        //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
-        //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
-        //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-        //        boxesRow4[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
-        //    }
-        //}
-        // for 6 row
+        ////for 4 row
+        for (int i = 0; i < boxesRow3.Count; i++)
+            {
+                if (boxesRow3[i].boxCollider == null)
+                {
+                    boxesRow3.RemoveAt(i);
+                    print("box gone");
+                    //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
+                    //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
+                    //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
+                }
+                    boxesRow3[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
+            }
+        ////for 5 row
+        for (int i = 0; i < boxesRow4.Count; i++)
+            {
+                if (boxesRow4[i].boxCollider == null)
+                {
+                    boxesRow4.RemoveAt(i);
+                    print("box gone");
+                    //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
+                    //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
+                    //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
+                }
+                    boxesRow4[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
+            }
+        //// for 6 row
         //for (int i = 0; i < boxesRow5.Count; i++)
         //{
         //    if (boxesRow5[i].boxCollider == null)
@@ -212,10 +216,10 @@ public class LevelSpawner : MonoBehaviour
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-        //        boxesRow5[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //    }
+        //        boxesRow5[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //}
-        // for 7 row
+        //// for 7 row
         //for (int i = 0; i < boxesRow6.Count; i++)
         //{
         //    if (boxesRow6[i].boxCollider == null)
@@ -225,10 +229,10 @@ public class LevelSpawner : MonoBehaviour
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-        //        boxesRow6[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //    }
+        //        boxesRow6[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //}
-        // for 8 row
+        //// for 8 row
         //for (int i = 0; i < boxesRow7.Count; i++)
         //{
         //    if (boxesRow7[i].boxCollider == null)
@@ -238,10 +242,10 @@ public class LevelSpawner : MonoBehaviour
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-        //        boxesRow7[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //    }
+        //        boxesRow7[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //}
-        // for 9 row
+        //// for 9 row
         //for (int i = 0; i < boxesRow8.Count; i++)
         //{
         //    if (boxesRow8[i].boxCollider == null)
@@ -251,10 +255,10 @@ public class LevelSpawner : MonoBehaviour
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-        //        boxesRow8[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //    }
+        //        boxesRow8[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //}
-        // for 10 row
+        //// for 10 row
         //for (int i = 0; i < boxesRow9.Count; i++)
         //{
         //    if (boxesRow9[i].boxCollider == null)
@@ -264,8 +268,8 @@ public class LevelSpawner : MonoBehaviour
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
-        //        boxesRow9[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //    }
+        //        boxesRow9[i].boxCollider.transform.localPosition = new Vector2(boxElements[i].x, boxElements[i].y);
         //}
     }
 
@@ -310,7 +314,13 @@ public class LevelSpawner : MonoBehaviour
         //    }
         //}
     }
+
 } // class
+
+
+
+
+
 
 
 
