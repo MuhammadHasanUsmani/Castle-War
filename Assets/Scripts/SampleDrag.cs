@@ -10,7 +10,8 @@ public class SampleDrag : MonoBehaviour
     {
 #pragma warning disable 0649
         public Collider2D boxCollider;
-        public float min, max;
+        public float min;
+        public float max;
         public float BoxHealth;
         public Text boxHealthText;
 #pragma warning restore 0649
@@ -29,6 +30,7 @@ public class SampleDrag : MonoBehaviour
     public Text playerHealthText;
 
     Vector2 lastPosition;
+    Vector2 firstPosition;
     public bool isActive = false;
     Collider2D lastObject;
     Vector2 point;
@@ -42,19 +44,29 @@ public class SampleDrag : MonoBehaviour
 
     // check index
     int collideIndex = 2;
+    public GameObject lastpos;
+
+    public Animator anim;
 
 
 
 
     private void Start()
     {
+        transform.position = LevelSpawner.Instance.playercastleBox.transform.position;
         lastPosition = transform.position;
+        firstPosition = transform.position;
         LevelSpawner.Instance.ChangePOsition();
+        for (int i = 0; i < boxes.Count; i++)
+        {
+            boxes[0].BoxHealth = Random.Range(boxes[i].min, boxes[i].max);
+        }
     }
     void Update()
     {
         for (int i = 0; i < boxes.Count; i++)
         {
+
             boxHealthIndex = i;
             boxes[boxHealthIndex].boxHealthText.text = boxes[boxHealthIndex].BoxHealth.ToString();
         }
@@ -95,11 +107,15 @@ public class SampleDrag : MonoBehaviour
             transform.position = lastPosition;
         }
         checkMouse = true;
+        this.transform.SetParent(LevelSpawner.Instance.littleCantaner.transform);
+        //LevelSpawner.Instance.littleCantaner.transform.SetParent(LevelSpawner.Instance.bigCantaner.transform);
 
     }
     private void OnMouseDown()
     {
         checkMouse = false;
+        this.transform.SetParent(null);
+        //LevelSpawner.Instance.littleCantaner.transform.SetParent(null);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -148,6 +164,7 @@ public class SampleDrag : MonoBehaviour
         if (boxes[collideIndex].BoxHealth <= 0)
         {
             Destroy(collision.gameObject);
+            //LevelSpawner.Instance.tepmNum--;
             LevelSpawner.Instance.PlayerCastle();
         }
             
@@ -163,15 +180,19 @@ public class SampleDrag : MonoBehaviour
         {
             playerHealth = playerHealth += enemyHealth;
             boxes[collideIndex].BoxHealth = 0;
+            transform.position = new Vector2(firstPosition.x,firstPosition.y);
+            lastPosition = firstPosition;
             print("Enemy "+ collideIndex + " is Dead");
         }
         else
         {
+            anim.SetBool("IsDying", true);
             print("Player Dead");
         }
     }
     IEnumerator Fade()
     {
+        anim.SetBool("IsFight", true);
         yield return new WaitForSeconds(2f);
         print("enter");
         if (checkFight && checkMouse)
@@ -179,32 +200,35 @@ public class SampleDrag : MonoBehaviour
             enemyHealth = boxes[collideIndex].BoxHealth;
             print("Enemy Health is " + enemyHealth);
             Fight();
+            //lastPosition = Vector3.Lerp(this.transform.position, lastpos.transform.position, speed * Time.deltaTime);
+            //transform.position = Vector2.Lerp(lastPosition, firstPosition, 2f * Time.deltaTime);
         }
+        anim.SetBool("IsFight", false);
         //CameraMove();
 
     }
 
-    public void CameraMove()
-    {
-        campoint = cam.transform.position;
-        if (playerHealth == 65)
-        {
-            Vector3 newpos =  campoint = new Vector3 (9,0,-10);
-            cam.transform.position = Vector3.Lerp(campoint, newpos, 2f * Time.deltaTime);
-            //cam.transform.position = campoint;
-        }
-        else if (playerHealth == 415)
-        {
-            campoint = cam.transform.position;
-            campoint.x = (18);
-            cam.transform.position = campoint;
-            float newsizeCamera = cam.orthographicSize + 2f;
-            cam.orthographicSize = newsizeCamera;
-        }
-        //cam.transform.position = Vector3.Lerp(campoint, newpos, 2f * Time.deltaTime);
-        //cam.transform.position = campoint;
+    //public void CameraMove()
+    //{
+    //    campoint = cam.transform.position;
+    //    if (playerHealth == 65)
+    //    {
+    //        Vector3 newpos =  campoint = new Vector3 (9,0,-10);
+    //        cam.transform.position = Vector3.Lerp(campoint, newpos, 2f * Time.deltaTime);
+    //        //cam.transform.position = campoint;
+    //    }
+    //    else if (playerHealth == 415)
+    //    {
+    //        campoint = cam.transform.position;
+    //        campoint.x = (18);
+    //        cam.transform.position = campoint;
+    //        float newsizeCamera = cam.orthographicSize + 2f;
+    //        cam.orthographicSize = newsizeCamera;
+    //    }
+    //    //cam.transform.position = Vector3.Lerp(campoint, newpos, 2f * Time.deltaTime);
+    //    //cam.transform.position = campoint;
 
-    }
+    //}
 }// class
 
 

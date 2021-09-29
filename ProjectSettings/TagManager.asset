@@ -8,6 +8,8 @@ TagManager:
   - InvalidDrop
   - Box
   - Enemy
+  - LittleContaner
+  - Big Contaner
   layers:
   - Default
   - TransparentFX
