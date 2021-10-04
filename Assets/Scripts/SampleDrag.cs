@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SampleDrag : MonoBehaviour
 {
     [System.Serializable]
-    private class Boxes
+    public class Boxes
     {
 #pragma warning disable 0649
         public Collider2D boxCollider;
@@ -22,20 +22,25 @@ public class SampleDrag : MonoBehaviour
     List<Boxes> boxes = new List<Boxes>();
     [SerializeField]
     List<GameObject> box = new List<GameObject>();
-    //[SerializeField]
-    //private  Boxes[] boxes;
+    
 
     public float playerHealth = 15f;
     public float enemyHealth;
     public Text playerHealthText;
-
+    // positions 
     Vector2 lastPosition;
     Vector2 firstPosition;
+    //
+
     public bool isActive = false;
     Collider2D lastObject;
+
+    //mouse position for drag
     Vector2 point;
     float x;
     float y;
+    //
+
     public float speed = 15f;
     public bool checkFight = false;
     public bool checkMouse = false;
@@ -49,23 +54,24 @@ public class SampleDrag : MonoBehaviour
     // Player Animator
     public Animator anim;
 
-    // 
+    // for disable scroll horizontal///////////////////////
     public GameObject scrollrect;
+    /// //////////////////////////////////////////////////
 
 
 
 
     private void Start()
     {
-        transform.position = LevelSpawner.Instance.playercastleBox.transform.position;
         lastPosition = transform.position;
         firstPosition = transform.position;
+        transform.position = LevelSpawner.Instance.playercastleBox.transform.position;
         LevelSpawner.Instance.ChangePOsition();
         for (int i = 0; i < boxes.Count; i++)
         {
-            boxes[0].BoxHealth = Random.Range(boxes[i].min, boxes[i].max);
+            boxes[i].BoxHealth = Random.Range(boxes[i].min, boxes[i].max);
         }
-        scrollrect.GetComponent<ScrollRect>();
+        //scrollrect.GetComponent<ScrollRect>();
     }
     void Update()
     {
@@ -100,6 +106,7 @@ public class SampleDrag : MonoBehaviour
             newpos = transform.position;
             newpos = new Vector2(lastObject.transform.position.x - 0.5f, lastObject.transform.position.y);
             lastPosition = newpos;
+            //transform.position = Vector2.Lerp(lastPosition, newpos, Time.deltaTime*0.2f);
             transform.position = lastPosition;
             //print("mouseup");
             if (lastObject != null)
@@ -144,7 +151,7 @@ public class SampleDrag : MonoBehaviour
             {
                 if (collision.gameObject.Equals(box[i]))
                 {
-                    print(i);
+                    //print(i);
                     collideIndex = i;
                     break;
                 }
@@ -166,7 +173,7 @@ public class SampleDrag : MonoBehaviour
         if (lastObject == null)
         {
             StopCoroutine("Fade");
-            print("destroy");
+            //print("destroy");
         }
 
         if (boxes[collideIndex].BoxHealth <= 0)
@@ -188,25 +195,26 @@ public class SampleDrag : MonoBehaviour
         {
             playerHealth = playerHealth += enemyHealth;
             boxes[collideIndex].BoxHealth = 0;
-            transform.position = new Vector2(firstPosition.x,firstPosition.y);
+            transform.position = Vector3.Lerp(lastPosition, firstPosition, 10f /*/ Time.deltaTime*/);
+            //transform.position = new Vector2(firstPosition.x,firstPosition.y);
             lastPosition = firstPosition;
-            print("Enemy "+ collideIndex + " is Dead");
+            //print("Enemy "+ collideIndex + " is Dead");
         }
         else
         {
             anim.SetBool("IsDying", true);
-            print("Player Dead");
+            //print("Player Dead");
         }
     }
     IEnumerator Fade()
     {
         anim.SetBool("IsFight", true);
         yield return new WaitForSeconds(2f);
-        print("enter");
+        //print("enter");
         if (checkFight && checkMouse)
         {
             enemyHealth = boxes[collideIndex].BoxHealth;
-            print("Enemy Health is " + enemyHealth);
+            //print("Enemy Health is " + enemyHealth);
             Fight();
             //lastPosition = Vector3.Lerp(this.transform.position, lastpos.transform.position, speed * Time.deltaTime);
             //transform.position = Vector2.Lerp(lastPosition, firstPosition, 2f * Time.deltaTime);

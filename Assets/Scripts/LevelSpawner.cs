@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LevelSpawner : MonoBehaviour
 {
     public static LevelSpawner Instance = null;
-    // custom class for bax variables
+    // custom class for box variables
     [System.Serializable]
     private class Boxes
     {
@@ -23,7 +23,7 @@ public class LevelSpawner : MonoBehaviour
     public GameObject playercastleBox;
     GameObject playerCastle;
 
-    // list for boxElements in row
+    // list for boxElements in row//////////////////////////////////////////
     [SerializeField]
     List<Boxes> boxesRow0 = new List<Boxes>();
     [SerializeField]
@@ -48,7 +48,7 @@ public class LevelSpawner : MonoBehaviour
     //List<Boxes> boxesRow9 = new List<Boxes>();
 
 
-    // list for box elements positions
+    // list for box elements positions///////////////////////////////////////
     [SerializeField]
     List<Vector2> boxElements = new List<Vector2>();
     //[SerializeField]
@@ -62,7 +62,7 @@ public class LevelSpawner : MonoBehaviour
 
     /////////////////
 
-    // list for player Castle Box Position
+    // list for player Castle Box Position//////////////////////////////////////////
     [SerializeField]
     //LinkedList<GameObject> playercastle = new LinkedList<GameObject>();
     Stack<GameObject> PlayerCastleBox = new Stack<GameObject>();
@@ -97,10 +97,10 @@ public class LevelSpawner : MonoBehaviour
         playerCastle.transform.SetParent(littleCantaner.transform);
 
         littleCantaner.transform.SetParent(bigCantaner.transform);
-        print(tepmNum +"is this start");
+        //print(tepmNum +"is this start");
         // end
 
-        ChangePOsition();
+        //ChangePOsition();
     }
 
     // Update is called once per frame
@@ -148,7 +148,7 @@ public class LevelSpawner : MonoBehaviour
             if (boxesRow0[i].boxCollider == null)
             {
                 boxesRow0.RemoveAt(i);
-                print("box gone");
+                //print("box gone");
                 
                 //Vector2.Lerp(boxesRow[i].boxCollider.transform.position, new Vector2(boxElements0[i].x, boxElements0[i].y), 0.5f * Time.deltaTime);
             }
@@ -160,7 +160,7 @@ public class LevelSpawner : MonoBehaviour
              if (boxesRow1[i].boxCollider == null)
              {
                     boxesRow1.RemoveAt(i);
-                    print("box gone");
+                    //print("box gone");
                     //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
                     //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
                     //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -173,7 +173,7 @@ public class LevelSpawner : MonoBehaviour
             if (boxesRow2[i].boxCollider == null)
             {
                 boxesRow2.RemoveAt(i);
-                print("box gone");
+                //print("box gone");
                 //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
                 //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
                 //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -186,7 +186,7 @@ public class LevelSpawner : MonoBehaviour
                 if (boxesRow3[i].boxCollider == null)
                 {
                     boxesRow3.RemoveAt(i);
-                    print("box gone");
+                    //print("box gone");
                     //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
                     //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
                     //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -199,7 +199,7 @@ public class LevelSpawner : MonoBehaviour
                 if (boxesRow4[i].boxCollider == null)
                 {
                     boxesRow4.RemoveAt(i);
-                    print("box gone");
+                    //print("box gone");
                     //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
                     //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
                     //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -212,7 +212,7 @@ public class LevelSpawner : MonoBehaviour
         //    if (boxesRow5[i].boxCollider == null)
         //    {
         //        boxesRow5.RemoveAt(i);
-        //        print("box gone");
+        ////        print("box gone");
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -225,7 +225,7 @@ public class LevelSpawner : MonoBehaviour
         //    if (boxesRow6[i].boxCollider == null)
         //    {
         //        boxesRow6.RemoveAt(i);
-        //        print("box gone");
+        ////        print("box gone");
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -238,7 +238,7 @@ public class LevelSpawner : MonoBehaviour
         //    if (boxesRow7[i].boxCollider == null)
         //    {
         //        boxesRow7.RemoveAt(i);
-        //        print("box gone");
+        ////        print("box gone");
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -251,7 +251,7 @@ public class LevelSpawner : MonoBehaviour
         //    if (boxesRow8[i].boxCollider == null)
         //    {
         //        boxesRow8.RemoveAt(i);
-        //        print("box gone");
+        ////        print("box gone");
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -264,7 +264,7 @@ public class LevelSpawner : MonoBehaviour
         //    if (boxesRow9[i].boxCollider == null)
         //    {
         //        boxesRow9.RemoveAt(i);
-        //        print("box gone");
+        ////        print("box gone");
         //        //Vector2 lastposition = boxesRow1[i].boxCollider.transform.position;
         //        //Vector2 newposition = boxElements1[i].x, boxElements1[i].y;
         //        //Vector2.Lerp(lastposition,newposition, 0.5f * Time.deltaTime);
@@ -284,7 +284,7 @@ public class LevelSpawner : MonoBehaviour
         foreach (var item in PlayerCastleBox)
         {
 
-            print(tepmNum + " is this method");
+            //print(tepmNum + " is this method");
             //for (int i = playerCastlePosition.Count; i >= 0; i--)
             //{
             //    item.transform.position = new Vector2(playerCastlePosition[i].x, playerCastlePosition[i].y);
