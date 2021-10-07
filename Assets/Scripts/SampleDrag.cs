@@ -80,6 +80,10 @@ public class SampleDrag : MonoBehaviour
 
             boxHealthIndex = i;
             boxes[boxHealthIndex].boxHealthText.text = boxes[boxHealthIndex].BoxHealth.ToString();
+            //if (boxes[boxHealthIndex].boxCollider == null)
+            //{
+            //    boxes.RemoveAt(boxHealthIndex);
+            //}
         }
         playerHealthText.text = playerHealth.ToString();
         
@@ -179,6 +183,7 @@ public class SampleDrag : MonoBehaviour
         if (boxes[collideIndex].BoxHealth <= 0)
         {
             Destroy(collision.gameObject);
+            //Check.Instance.ListCheck();
             //LevelSpawner.Instance.tepmNum--;
             LevelSpawner.Instance.PlayerCastle();
         }
