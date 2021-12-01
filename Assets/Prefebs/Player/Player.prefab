@@ -147,6 +147,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   lastpos: {fileID: 0}
   anim: {fileID: 8036356353433298738}
+  scrollrect: {fileID: 0}
 --- !u!61 &4822411141571327569
 BoxCollider2D:
   m_ObjectHideFlags: 0
